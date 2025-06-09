@@ -9,7 +9,7 @@ export const fetchWeatherData = async (location: string): Promise<WeatherData> =
   try {
     const response = await axios.get(`${BASE_URL}/forecast.json`, {
       params: {
-        key: WEATHER_API_KEY,
+        key: cdcad725685e47e18ae124141250906,
         q: location,
         days: 5,
         aqi: 'no',
