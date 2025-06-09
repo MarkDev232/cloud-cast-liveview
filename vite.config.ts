@@ -3,10 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-
-
 export default defineConfig(({ mode }) => ({
-  base: `/cloud-cast-liveview/`,
+  base: '/cloud-cast-liveview/',
   server: {
     host: "::",
     port: 8080,
@@ -18,6 +16,11 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: path.resolve(__dirname, "index.html"),
     },
   },
 }));
