@@ -51,8 +51,8 @@ const WeatherApp: React.FC = () => {
 
   // Determine weather condition for background
   const weatherCondition = weatherData 
-    ? getWeatherCondition(weatherData.current.condition.text, true)
-    : 'clear';
+    ? 'clear':getWeatherCondition(weatherData.current.condition.text, true)
+    ;
   
   const gradientClass = getWeatherGradientClass(weatherCondition);
 
