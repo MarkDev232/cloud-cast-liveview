@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 
 export default defineConfig(({ mode }) => ({
-  base: `/cloud-cast-liveview/`, // 👈 IMPORTANT for GitHub Pages
+  base: `/cloud-cast-liveview/`,
   server: {
     host: "::",
     port: 8080,
