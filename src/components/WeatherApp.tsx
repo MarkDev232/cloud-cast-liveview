@@ -8,7 +8,8 @@ import WeatherCard from './WeatherCard';
 import ForecastCard from './ForecastCard';
 import WeatherDetails from './WeatherDetails';
 import { WeatherData } from '@/types/weather';
-import { getMockWeatherData, getWeatherCondition, getWeatherGradientClass } from '@/utils/weatherUtils';
+import { getWeatherCondition, getWeatherGradientClass } from '@/utils/weatherUtils';
+import { fetchWeatherData } from '@/services/weatherService';
 
 const WeatherApp: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -16,26 +17,16 @@ const WeatherApp: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-  const fetchWeatherData = async (location: string = 'New York') => {
+  const loadWeatherData = async (location: string = 'Bulacan, Philippines') => {
     setLoading(true);
     setError(null);
     
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, we'll use mock data
-      const mockData = getMockWeatherData();
-      
-      // Update location based on search
-      if (location !== 'New York') {
-        mockData.location.name = location.split(',')[0] || location;
-      }
-      
-      setWeatherData(mockData);
+      const data = await fetchWeatherData(location);
+      setWeatherData(data);
       setLastUpdated(new Date());
     } catch (err) {
-      setError('Failed to fetch weather data. Please try again.');
+      setError('Failed to fetch weather data. Please check your API key or try again.');
       console.error('Weather fetch error:', err);
     } finally {
       setLoading(false);
@@ -43,16 +34,18 @@ const WeatherApp: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchWeatherData();
+    loadWeatherData();
   }, []);
 
   const handleSearch = (location: string) => {
-    fetchWeatherData(location);
+    loadWeatherData(location);
   };
 
   const handleRefresh = () => {
     if (weatherData) {
-      fetchWeatherData(weatherData.location.name);
+      loadWeatherData(weatherData.location.name);
+    } else {
+      loadWeatherData();
     }
   };
 
@@ -95,6 +88,16 @@ const WeatherApp: React.FC = () => {
             <AlertCircle className="h-4 w-4 text-red-400" />
             <AlertDescription className="text-red-400">
               {error}
+              {error.includes('API key') && (
+                <div className="mt-2 text-sm">
+                  <p>To get real weather data:</p>
+                  <ol className="list-decimal list-inside mt-1 space-y-1">
+                    <li>Sign up at <a href="https://weatherapi.com/" target="_blank" rel="noopener noreferrer" className="underline">weatherapi.com</a></li>
+                    <li>Get your free API key</li>
+                    <li>Replace 'YOUR_API_KEY_HERE' in the weatherService.ts file</li>
+                  </ol>
+                </div>
+              )}
             </AlertDescription>
           </Alert>
         )}
