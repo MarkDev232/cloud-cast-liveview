@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,20 +38,23 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Weather-specific variables */
+    --weather-clear: 220 100% 50%;
+    --weather-clear-secondary: 280 100% 70%;
+    --weather-sunny: 45 100% 55%;
+    --weather-sunny-secondary: 35 100% 65%;
+    --weather-cloudy: 220 15% 65%;
+    --weather-cloudy-secondary: 220 15% 75%;
+    --weather-rainy: 210 50% 45%;
+    --weather-rainy-secondary: 220 60% 55%;
   }
 
   .dark {
@@ -89,6 +93,16 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dark mode weather variables */
+    --weather-clear: 220 80% 60%;
+    --weather-clear-secondary: 280 80% 70%;
+    --weather-sunny: 45 90% 65%;
+    --weather-sunny-secondary: 35 90% 75%;
+    --weather-cloudy: 220 20% 30%;
+    --weather-cloudy-secondary: 220 20% 40%;
+    --weather-rainy: 210 40% 35%;
+    --weather-rainy-secondary: 220 50% 45%;
   }
 }
 
@@ -99,5 +113,41 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Weather app specific styles */
+.weather-gradient-clear {
+  background: linear-gradient(135deg, hsl(var(--weather-clear)) 0%, hsl(var(--weather-clear-secondary)) 100%);
+}
+
+.weather-gradient-sunny {
+  background: linear-gradient(135deg, hsl(var(--weather-sunny)) 0%, hsl(var(--weather-sunny-secondary)) 100%);
+}
+
+.weather-gradient-cloudy {
+  background: linear-gradient(135deg, hsl(var(--weather-cloudy)) 0%, hsl(var(--weather-cloudy-secondary)) 100%);
+}
+
+.weather-gradient-rainy {
+  background: linear-gradient(135deg, hsl(var(--weather-rainy)) 0%, hsl(var(--weather-rainy-secondary)) 100%);
+}
+
+.glass-card {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weather-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
