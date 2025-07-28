@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { Calendar, MapPin, Thermometer } from 'lucide-react';
 import { WeatherData } from '@/types/weather';
-import { formatTime } from '@/utils/weatherUtils';
 
 interface WeatherCardProps {
   weatherData: WeatherData;
@@ -10,6 +8,13 @@ interface WeatherCardProps {
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
   const { location, current } = weatherData;
+
+  // Get user's actual local system time
+  const systemLocalTime = new Date().toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
 
   return (
     <div className="glass-card rounded-3xl p-8 mb-6 weather-animation">
@@ -21,12 +26,12 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
           </h1>
         </div>
         <p className="text-white/70">
-          {location.region}, {location.country}
+          {location.name}, {location.country}
         </p>
         <div className="flex items-center justify-center gap-2 mt-1">
           <Calendar className="h-4 w-4 text-white/60" />
           <p className="text-white/60 text-sm">
-            {formatTime(location.localtime)}
+            {systemLocalTime}
           </p>
         </div>
       </div>

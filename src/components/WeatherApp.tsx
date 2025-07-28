@@ -80,25 +80,7 @@ const WeatherApp: React.FC = () => {
           currentLocation={weatherData ? `${weatherData.location.name}, ${weatherData.location.country}` : undefined}
         />
 
-        {/* Error State */}
-        {error && (
-          <Alert className="mb-6 bg-red-500/10 border-red-500/20">
-            <AlertCircle className="h-4 w-4 text-red-400" />
-            <AlertDescription className="text-red-400">
-              {error}
-              {error.includes('API key') && (
-                <div className="mt-2 text-sm">
-                  <p>To get real weather data:</p>
-                  <ol className="list-decimal list-inside mt-1 space-y-1">
-                    <li>Sign up at <a href="https://weatherapi.com/" target="_blank" rel="noopener noreferrer" className="underline">weatherapi.com</a></li>
-                    <li>Get your free API key</li>
-                    <li>Replace 'YOUR_API_KEY_HERE' in the weatherService.ts file</li>
-                  </ol>
-                </div>
-              )}
-            </AlertDescription>
-          </Alert>
-        )}
+        
 
         {/* Loading State */}
         {loading && (

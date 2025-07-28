@@ -1,8 +1,7 @@
-
-import React, { useState } from 'react';
-import { Search, MapPin } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import React, { useState } from "react";
+import { Search, MapPin } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface SearchBarProps {
   onSearch: (location: string) => void;
@@ -10,13 +9,13 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, currentLocation }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       onSearch(searchTerm.trim());
-      setSearchTerm('');
+      setSearchTerm("");
     }
   };
 
@@ -28,14 +27,18 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, currentLocation }) => {
           onSearch(`${latitude},${longitude}`);
         },
         (error) => {
-          console.error('Error getting location:', error);
-          // Fallback to default location
-          onSearch('New York');
+          console.error("Error getting location:", error);
+          onSearch("New York");
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
         }
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
-      onSearch('New York');
+      console.error("Geolocation is not supported by this browser.");
+      onSearch("New York");
     }
   };
 
