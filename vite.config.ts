@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
-  base: "/", // Must match your repository name exactly
+  base: process.env.VITE_BASE_URL || "/",
   server: {
     host: "::",
     port: 8080,
@@ -24,9 +24,8 @@ export default defineConfig({
         assetFileNames: "assets/[name]-[hash][extname]",
         entryFileNames: "assets/[name]-[hash].js",
         chunkFileNames: "assets/[name]-[hash].js",
-      }
+      },
     },
-     target: 'esnext' // Add this line
-    
-  }
+    target: "esnext", // Add this line
+  },
 });
