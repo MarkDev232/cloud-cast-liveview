@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
-  base: "/cloud-cast-liveview/", // Must match your repository name exactly
+  base: "/", // Must match your repository name exactly
   server: {
     host: "::",
     port: 8080,
